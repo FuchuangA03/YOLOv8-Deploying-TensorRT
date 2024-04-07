@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YOLOv8井盖识别</title>
+    <style>
+        .main {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div class="main">
+    <h1 id="title">YOLOv8井盖识别</h1>
+    <img src="https://cdn.jsdelivr.net/gh/fufu0615/img_bed/img/202403092243389.png" id="img1" width="448" height="448"/>
+    <img src="https://cdn.jsdelivr.net/gh/fufu0615/img_bed/img/202403092243389.png" id="img2" width="448" height="448"/>
+    <br>
+    <form id="uploadform" enctype="multipart/form-data">
+        <input type="file" name="file" id="upload">
+        <input type="button" value="上传" id="upfilebtn">
+    </form>
+</div>
+</body>
+<script src="https://cdn.staticfile.org/jquery/1.8.3/jquery.min.js"></script>
+<script type="text/javascript">
+    $('#upfilebtn').click(function () {
+        var formData = new FormData($('#uploadform')[0]);
+        $.ajax({
+            url: '/deploy_online',
+            type: 'POST',
+            data: formData,
+            async: false,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (data) {
+                var d = JSON.parse(data);
+                $('#img1').attr('src', d.input_url);
+                $('#img2').attr('src', d.output_url);
+            },
+        })
+    })
+</script>
+</html>

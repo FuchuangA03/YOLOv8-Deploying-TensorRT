@@ -2,6 +2,7 @@ from pathlib import Path
 from typing import List, Tuple, Union
 
 import cv2
+import math
 import numpy as np
 from numpy import ndarray
 
@@ -22,10 +23,10 @@ def letterbox(im: ndarray,
 
     # Scale ratio (new / old)
     r = min(new_shape[0] / shape[1], new_shape[1] / shape[0])
+    mean_r = math.sqrt((new_shape[0] / shape[1]) ** 2 + (new_shape[1] / shape[0]) ** 2)
     # Compute padding [width, height]
     new_unpad = int(round(shape[1] * r)), int(round(shape[0] * r))
-    dw, dh = new_shape[0] - new_unpad[0], new_shape[1] - new_unpad[
-        1]  # wh padding
+    dw, dh = new_shape[0] - new_unpad[0], new_shape[1] - new_unpad[1]  # wh padding
 
     dw /= 2  # divide padding into 2 sides
     dh /= 2
@@ -41,7 +42,7 @@ def letterbox(im: ndarray,
                             right,
                             cv2.BORDER_CONSTANT,
                             value=color)  # add border
-    return im, r, (dw, dh)
+    return im, r, mean_r, (dw, dh)
 
 
 def blob(im: ndarray, return_seg: bool = False) -> Union[ndarray, Tuple]:
