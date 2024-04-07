@@ -4,6 +4,7 @@ from pathlib import Path
 
 import cv2
 import torch
+import time
 
 from config import CLASSES, COLORS
 from models.torch_utils import det_postprocess
@@ -34,7 +35,10 @@ def main(args: argparse.Namespace) -> None:
         dwdh = torch.asarray(dwdh * 2, dtype=torch.float32, device=device)
         tensor = torch.asarray(tensor, device=device)
         # inference
+        start = time.time()
         data = Engine(tensor)
+        end = time.time()
+        print("推理用时：{}".format(end - start))
 
         bboxes, scores, labels = det_postprocess(data)
         if bboxes.numel() == 0:
@@ -83,4 +87,6 @@ def parse_args() -> argparse.Namespace:
 
 if __name__ == '__main__':
     args = parse_args()
+    # import pdb
+    # pdb.set_trace()
     main(args)
