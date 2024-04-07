@@ -1,9 +1,9 @@
 # Personal
 .idea
-*.engine
-*.pt
+# *.engine
+# *.pt
 *.pth
-*.onnx
+# *.onnx
 *.jpg
 *.png
 *.bmp
