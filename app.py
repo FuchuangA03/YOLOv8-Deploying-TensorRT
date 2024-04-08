@@ -19,14 +19,14 @@ from predict import predict
 import oss2
 
 # 填写RAM用户的访问密钥（AccessKey ID和AccessKey Secret）。
-accessKeyId = 'LTAI5tFoTQMdVcheJ1T1P8M8'
-accessKeySecret = 'XmbehcyMxqA75s1OwaKNgCENCMzqVM'
+accessKeyId = 'your_acessKeyId'
+accessKeySecret = 'your_accessKeySecret'
 # 使用代码嵌入的RAM用户的访问密钥配置访问凭证。
 auth = oss2.Auth(accessKeyId, accessKeySecret)
 
 # 填写Bucket所在地域对应的Endpoint。以华东1（杭州）为例，Endpoint填写为https://oss-cn-hangzhou.aliyuncs.com。
 # yourBucketName填写存储空间名称。
-bucket = oss2.Bucket(auth, 'oss-cn-beijing.aliyuncs.com', 'fufu-imgsubmit')
+bucket = oss2.Bucket(auth, 'oss-cn-xxxxxxx.aliyuncs.com', 'yourBucketName')
 
 app = Flask(__name__)
 
